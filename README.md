@@ -1,1 +1,1 @@
-htmlclassic.github.io/telegramWeb/
+<a href="htmlclassic.github.io/telegramWeb/">DEMO</a>
