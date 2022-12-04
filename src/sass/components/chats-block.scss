@@ -1,0 +1,150 @@
+@use '../vars' as *;
+@use '../mixins' as *;
+@use 'chat';
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.chats-block {
+  min-width: 261px;
+  width: 390px;
+
+  display: flex;
+  flex-direction: column;
+
+  border-right: 1px solid #e0e0e0;
+
+  &__header {
+    display: flex;
+    gap: 8px;
+
+    $paddingTopBottom: 13px;
+    padding: 13px $chats-block-side-padding;
+
+    min-height: calc(30px + $paddingTopBottom * 2 );
+  }
+
+  &__menu-btn {
+    width: 37px;
+    flex-shrink: 0;
+
+    cursor: pointer;
+    border: 1px solid red;
+  }
+
+  &__search-field {
+    line-height: 1;
+    flex-grow: 1;
+
+    padding: 0 14px;
+
+    background-color: #f1f1f1;
+    border: 2px solid transparent;
+    outline: none;
+    border-radius: 3px;
+
+    transition: border 0.3s;
+
+    &:focus {
+      border-color: #54c3f3;
+      background-color: transparent;
+    }
+
+    &::placeholder {
+      color: #8d8d8d;
+      padding-left: 3px;
+    }
+  }
+
+  &__list {
+    overflow-y: scroll;
+  }
+
+  .popup {
+    $iconSize: 24px;
+    $verticalPadding: 10px;
+
+    @mixin initialState {
+      visibility: hidden;
+      opacity: 0;
+      transition: 0.2s;
+    }
+
+    @mixin activeState {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    @mixin setIcon {
+      background-color: lightgrey;
+
+      content: "";
+      display: block;
+      width: $iconSize;
+      height: $iconSize;
+
+      @include center-bg-image;
+    }
+
+    @include initialState;
+
+    position: absolute;
+    border-radius: 3px;
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.1);
+    padding: $verticalPadding 0;
+    cursor: pointer;
+    max-width: max-content;
+    background-color: white;
+
+    z-index: 1;
+
+    &_visible {
+      @include activeState;
+    }
+
+    &__sub {
+      @include initialState;
+
+      position: absolute;
+      right: 0;
+      transform: translateX(100%);
+      top: -$verticalPadding;
+
+      &_visible {
+        @include activeState;
+      }
+    }
+
+    &__show-sub-popup-icon {
+      &::after {
+        @include setIcon;
+      }
+    }
+
+    &__item {
+      position: relative;
+
+      display: grid;
+      grid-template-columns: auto 1fr;
+      grid-auto-flow: column;
+      align-items: center;
+      gap: 17px;
+      padding: 8px 18px;
+
+      transition: background-color 0.2s;
+
+      &_color_red {
+        color: #ef617a;
+      }
+
+      &::before {
+        @include setIcon;
+      }
+
+      &:hover {
+        background-color: $hoverColor;
+      }
+    }
+  }
+}

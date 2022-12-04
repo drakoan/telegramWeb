@@ -1,0 +1,47 @@
+/*
+  This animation makes a little circle and expands it on the place where cursor was on click.
+  Pretty bad explanation, I know. You better see it yourself :)
+*/
+
+@keyframes fade {
+  to {
+    width: var(--circle-width);
+    height: var(--circle-height);
+    opacity: 0;
+  }
+}
+
+.circle-animation {
+  position: relative;
+
+  &__wrapper {
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    overflow: hidden;
+
+    height: 100%;
+    width: 100%;
+  }
+
+  &__circle {
+    position: relative;
+    left: 0;
+    top: 0;
+
+    transform: translate(-50%, -50%);
+
+    background-color: rgba(151, 199, 227, 0.65);
+    width: 0;
+    height: 0;
+    border-radius: 100%;
+
+    opacity: 1;
+
+    animation-name: fade;
+    animation-play-state: paused;
+    animation-duration: 1s; // adjust this parameter for yourself
+    animation-fill-mode: backwards;
+  }
+}

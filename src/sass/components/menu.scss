@@ -1,0 +1,156 @@
+@use '../vars' as *;
+@use '../mixins' as *;
+
+/* overflow-y: auto doesnt work on the footer */
+.menu {
+  $grey: #e0e0e0;
+  $sidePadding: 19px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  background-color: white;
+
+  padding: 16px 0;
+
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 10;
+  width: 275px;
+  height: 100vh;
+
+  transform: translateX(-100%);
+  transition: transform $menuTransitionTime;
+
+  overflow-y: auto;
+
+  .list {
+    max-height: 650px;
+    overflow-y: auto;
+
+    &__item {
+      display: flex;
+      align-items: center;
+      gap: 17px;
+
+      padding: 7px $sidePadding;
+
+      cursor: pointer;
+
+      &:hover {
+        background-color: $hoverColor;
+      }
+    }
+
+    &__grid-row {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+    }
+  }
+
+  &__content {
+    margin-top: 5px;
+
+    .list {
+      &__item {
+        &::before {
+          content: "";
+          display: block;
+          width: 24px;
+          height: 24px;
+          border-radius: 5px;
+
+          flex-shrink: 0;
+
+          background-color: #e5e5e5;
+          @include center-bg-image;
+        }
+      }
+    }
+  }
+
+  &_active {
+    transform: translateX(0);
+  }
+
+  &__footer {
+    color: $lightgrey;
+    overflow: hidden;
+
+    padding: 0 $sidePadding;
+
+    &-app-name {
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+  }
+
+  .user {
+    &__bg-picture, &__add-user-bg-picture {
+      width: 26px;
+      height: 26px;
+    }
+
+    &__add-user-bg-picture::before {
+      width: 20px;
+      height: 20px;
+    }
+
+    &__picture {
+      margin-bottom: 16px;
+    }
+
+    &__name {
+      font-weight: bold;
+    }
+
+    &__info {
+      padding: 0 calc(5px + $sidePadding);
+      border-bottom: 1px solid $grey;
+    }
+
+    &__description {
+      padding-bottom: 11px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    &__show-switch-user-block-btn {
+      width: 20px;
+      height: 20px;
+      border: 1px solid red;
+      cursor: pointer;
+      transition: all 0.3s;
+
+      &_active {
+        transform: rotate(-180deg);
+      }
+    }
+
+    &__switch-user-block {
+      border-bottom: 1px solid transparent;
+      overflow: hidden;
+
+      transition: all 0.3s;
+
+      &::before {
+        content: "";
+        display: block;
+        height: 5px;
+      }
+
+      &::after {
+        content: "";
+        display: block;
+        height: 5px;
+      }
+
+      &_active {
+        border-bottom: 1px solid $grey;
+      }
+    }
+  }
+}

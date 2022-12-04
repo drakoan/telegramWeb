@@ -1,0 +1,49 @@
+@use 'sass:math';
+@use 'vars' as *;
+
+/// Remove the unit of a length
+/// @param {Number} $number - Number to remove unit from
+/// @return {Number} - Unitless number
+/// I took this function from css-tricks.com
+@function strip-unit($number) {
+    @if type-of($number) == 'number' and not unitless($number) {
+        @return math.div($number, ($number * 0 + 1));
+    }
+
+    @return $number;
+}
+
+// rounds value to some number of decimals after the point
+@function roundTo($value, $numOfDecimals) {
+    $value: strip-unit($value);
+    $numOfDecimals: strip-unit($numOfDecimals);
+    $result: 0;
+
+    @if $numOfDecimals > 0 {
+        $mult: 1;
+        $counter: $numOfDecimals;
+
+        @while $counter > 0 {
+            $mult: $mult * 10;
+            $counter: $counter - 1;
+        }
+
+        $result: math.div(math.round($value * $mult), $mult);
+    }
+
+    @return $result;
+}
+
+@function toRem($value) {
+    $value: strip-unit($value);
+
+    @return math.div($value, $fontSize) * 1rem;
+}
+
+@function pxToPercent($baseValue, $pxToConvert) {
+    $baseValue: strip-unit($baseValue);
+    $pxToConvert: strip-unit($pxToConvert);
+    $result: math.div($pxToConvert, math.div($baseValue, 100));
+
+    @return roundTo($result, 2) * 1%;
+}

@@ -1,0 +1,11 @@
+/*
+  That's the area where your messages are being shown.
+  Backend or JS, idk, have to load messages from the server into this container.
+*/
+.chat-content {
+  position: relative;
+
+  flex-grow: 1;
+
+  min-width: 381px;
+}
