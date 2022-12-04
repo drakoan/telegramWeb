@@ -1,1 +1,1 @@
-# telegramWeb
+htmlclassic.github.io/telegramWeb/
